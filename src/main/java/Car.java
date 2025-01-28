@@ -12,6 +12,11 @@ public class Car implements Movable{
         private double yCord;
         private String heading = "north";
 
+        public Car(int nrDoors, Color color, int enginePower, String modelName){
+            this.nrDoors = nrDoors;
+            this.
+        }
+
         public double[] getCords() {
             double[]cords = new double[2];
             cords[0]=xCord;
