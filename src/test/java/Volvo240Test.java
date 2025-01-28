@@ -3,12 +3,12 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-class Saab95Test {
-    private final Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
+
+class Volvo240Test {
+    private final Volvo240 volvo240 = new Volvo240(4, Color.red,125,"Saab95");
 
     @Test
     void getCords() {
-        assertEquals();
     }
 
     @Test
@@ -57,13 +57,5 @@ class Saab95Test {
 
     @Test
     void turnRight() {
-    }
-
-    @Test
-    void setTurboOn() {
-    }
-
-    @Test
-    void setTurboOff() {
     }
 }

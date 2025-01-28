@@ -8,8 +8,8 @@ public class Car implements Movable{
         private double currentSpeed; // The current speed of the car
         private Color color; // Color of the car
         private String modelName; // The car model name
-        private double xCord;
-        private double yCord;
+        private double xCord; // x coordinates of the car
+        private double yCord; // x coordinates of the car
         private String heading = "north";
 
         public Car(int nrDoors, Color color, int enginePower, String modelName){
