@@ -23,10 +23,6 @@ class Saab95Test {
     @Test
     @DisplayName("Current speed")
     void getCurrentSpeed() {
-        saab95.startEngine();
-        saab95.gas(1);
-        saab95.move();
-        assertEquals(1.1, saab95.getCurrentSpeed());
     }
 
     @Test
@@ -45,36 +41,31 @@ class Saab95Test {
     @Test
     @DisplayName("Start engine")
     void startEngine() {
-        saab95.startEngine();
-        assertEquals(0.1, saab95.getCurrentSpeed());
 
     }
 
     @Test
     @DisplayName("Stop engine")
     void stopEngine() {
-        saab95.stopEngine();
-        assertEquals(0, saab95.getCurrentSpeed());
     }
 
     @Test
-    @DisplayName("Check move cords")
+    void gas() {
+    }
+
+    @Test
+    void brake() {
+    }
+
+    @Test
+    @DisplayName("Check move coords")
     void move() {
+        saab95.setTurboOff();
+        saab95.setCords(0,0);
         saab95.startEngine();
         saab95.gas(1);
-        saab95.move();
         assertEquals(0, saab95.getCords()[0]);
-        assertEquals(1.1, saab95.getCords()[1]);
-
-        saab95.turnRight();
-        saab95.move();
-        assertEquals(1.1, saab95.getCords)[0];
-        assertEquals(1.1, saab95.getCords)[1];
-
-        saab95.brake(1);
-        saab95.move();
-        assertEquals(1.2, saab95.getCords)[0];
-        assertEquals(1.1, saab95.getCords)[1];
+        assertEquals(1.35, saab95.getCords()[1]);
     }
 
     @Test

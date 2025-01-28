@@ -86,6 +86,11 @@ public class Car implements Movable{
             }
         }
 
+        public void setCords(double cord1, double cord2){
+            xCord = cord1;
+            yCord = cord2;
+        }
+
         @Override
         public void move() {
             switch (heading) {
