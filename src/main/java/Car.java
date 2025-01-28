@@ -3,18 +3,21 @@ import java.lang.reflect.Array;
 
 public class Car implements Movable{
 
-        public int nrDoors; // Number of doors on the car
+        private int nrDoors; // Number of doors on the car
         public double enginePower; // Engine power of the car
-        public double currentSpeed; // The current speed of the car
-        public Color color; // Color of the car
-        public String modelName; // The car model name
+        private double currentSpeed; // The current speed of the car
+        private Color color; // Color of the car
+        private String modelName; // The car model name
         private double xCord;
         private double yCord;
         private String heading = "north";
 
         public Car(int nrDoors, Color color, int enginePower, String modelName){
             this.nrDoors = nrDoors;
-            this.
+            this.color = color;
+            this.enginePower = enginePower;
+            this.modelName = modelName;
+            stopEngine();
         }
 
         public double[] getCords() {
