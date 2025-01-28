@@ -10,7 +10,7 @@ public class Car implements Movable{
         private String modelName; // The car model name
         private double xCord; // x coordinates of the car
         private double yCord; // x coordinates of the car
-        private static String heading = "north";
+        private String heading = "north";
 
         public Car(int nrDoors, Color color, int enginePower, String modelName){
             this.nrDoors = nrDoors;
@@ -47,7 +47,7 @@ public class Car implements Movable{
             color = clr;
         }
 
-        public static String getHeading() {return heading;}
+        public String getHeading() {return heading;}
 
         public void setHeading(String input){heading = input;}
 
