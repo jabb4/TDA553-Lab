@@ -6,17 +6,19 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 class Saab95Test {
-    private final Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
+    //private final Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
 
     @Test
     @DisplayName("Coordinates")
     void getCords() {
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         assertEquals("[0.0, 0.0]", Arrays.toString(saab95.getCords()));
     }
 
     @Test
     @DisplayName("Engine power")
     void getEnginePower() {
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         assertEquals(125, saab95.getEnginePower());
     }
 
@@ -28,12 +30,14 @@ class Saab95Test {
     @Test
     @DisplayName("Current color")
     void getColor() {
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         assertEquals(Color.red, saab95.getColor());
     }
 
     @Test
     @DisplayName("Set color")
     void setColor() {
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         saab95.setColor(Color.blue);
         assertEquals(Color.blue, saab95.getColor());
     }
@@ -60,8 +64,7 @@ class Saab95Test {
     @Test
     @DisplayName("Check move coords")
     void move() {
-        saab95.setTurboOff();
-        saab95.setCords(0,0);
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         saab95.startEngine();
         saab95.gas(1);
         assertEquals(0, saab95.getCords()[0]);
@@ -71,7 +74,7 @@ class Saab95Test {
     @Test
     @DisplayName("Turn left")
     void turnLeft() {
-        saab95.setHeading("north");
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         saab95.turnLeft();
         assertEquals("west", saab95.getHeading());
         saab95.turnLeft();
@@ -81,7 +84,7 @@ class Saab95Test {
     @Test
     @DisplayName("Check turn right")
     void turnRight() {
-        saab95.setHeading("north");
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         saab95.turnRight();
         assertEquals("east", saab95.getHeading());
         saab95.turnRight();
@@ -90,19 +93,19 @@ class Saab95Test {
 
     @Test
     void setTurboOn() {
-        saab95.setTurboOff();
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", false);
         saab95.setTurboOn();
-        assertEquals(true, saab95.turboStatus());
+        assertTrue(saab95.turboStatus());
         saab95.setTurboOn();
-        assertEquals(true, saab95.turboStatus());
+        assertTrue(saab95.turboStatus());
     }
 
     @Test
     void setTurboOff() {
-        saab95.setTurboOn();
+        Saab95 saab95 = new Saab95(4, Color.red,125,"Saab95", true);
         saab95.setTurboOff();
-        assertEquals(false, saab95.turboStatus());
+        assertFalse(saab95.turboStatus());
         saab95.setTurboOff();
-        assertEquals(false, saab95.turboStatus());
+        assertFalse(saab95.turboStatus());
     }
 }
