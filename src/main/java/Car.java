@@ -49,8 +49,6 @@ public class Car implements Movable{
 
         public String getHeading() {return heading;}
 
-        public void setHeading(String input){heading = input;}
-
         public void startEngine(){
             currentSpeed = 0.1;
         }
@@ -86,10 +84,6 @@ public class Car implements Movable{
             }
         }
 
-        public void setCords(double cord1, double cord2){
-            xCord = cord1;
-            yCord = cord2;
-        }
 
         @Override
         public void move() {
