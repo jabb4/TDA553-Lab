@@ -14,9 +14,9 @@ public abstract class Car implements Movable{
     private double xCord; // x coordinates of the car
     private double yCord; // y coordinates of the car
     public enum headings {
-        north, south, east, west
+        NORTH, SOUTH, EAST, WEST
     }
-    private headings currentHeading = headings.north;
+    private headings currentHeading = headings.NORTH;
 
     /**
      * Constructor for Car with specified attributes.
@@ -169,16 +169,16 @@ public abstract class Car implements Movable{
     @Override
     public void move() {
         switch (this.currentHeading) {
-            case north:
+            case NORTH:
                 this.yCord += getCurrentSpeed();
                 break;
-            case east:
+            case EAST:
                 this.xCord += getCurrentSpeed();
                 break;
-            case south:
+            case SOUTH:
                 this.yCord -= getCurrentSpeed();
                 break;
-            case west:
+            case WEST:
                 this.xCord -= getCurrentSpeed();
                 break;
         }
@@ -190,17 +190,17 @@ public abstract class Car implements Movable{
     @Override
     public void turnLeft() {
         switch (this.currentHeading) {
-            case north:
-                this.currentHeading = headings.west;
+            case NORTH:
+                this.currentHeading = headings.WEST;
                 break;
-            case east:
-                this.currentHeading = headings.north;
+            case EAST:
+                this.currentHeading = headings.NORTH;
                 break;
-            case south:
-                this.currentHeading = headings.east;
+            case SOUTH:
+                this.currentHeading = headings.EAST;
                 break;
-            case west:
-                this.currentHeading = headings.south;
+            case WEST:
+                this.currentHeading = headings.SOUTH;
                 break;
         }
     }
@@ -211,17 +211,17 @@ public abstract class Car implements Movable{
     @Override
     public void turnRight() {
         switch (this.currentHeading) {
-            case north:
-                this.currentHeading = headings.east;
+            case NORTH:
+                this.currentHeading = headings.EAST;
                 break;
-            case east:
-                this.currentHeading = headings.south;
+            case EAST:
+                this.currentHeading = headings.SOUTH;
                 break;
-            case south:
-                this.currentHeading = headings.west;
+            case SOUTH:
+                this.currentHeading = headings.WEST;
                 break;
-            case west:
-               this.currentHeading = headings.north;
+            case WEST:
+               this.currentHeading = headings.NORTH;
                 break;
         }
     }
