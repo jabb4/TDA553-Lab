@@ -85,18 +85,18 @@ class Saab95Test {
     @DisplayName("Turn left")
     void turnLeft() {
         saab95.turnLeft();
-        assertEquals(Car.headings.west, saab95.getHeading());
+        assertEquals(Car.headings.WEST, saab95.getHeading());
         saab95.turnLeft();
-        assertEquals(Car.headings.south, saab95.getHeading());
+        assertEquals(Car.headings.SOUTH, saab95.getHeading());
     }
 
     @Test
     @DisplayName("Check turn right")
     void turnRight() {
         saab95.turnRight();
-        assertEquals(Car.headings.east, saab95.getHeading());
+        assertEquals(Car.headings.EAST, saab95.getHeading());
         saab95.turnRight();
-        assertEquals(Car.headings.south, saab95.getHeading());
+        assertEquals(Car.headings.SOUTH, saab95.getHeading());
     }
 
     @Test
@@ -178,5 +178,42 @@ class Volvo240Test {
         volvo240.gas(1);
         assertEquals(0, volvo240.getCords()[0]);
         assertEquals(1.6625, volvo240.getCords()[1]);
+    }
+}
+
+class ScaniaTest {
+    Scania scania;
+
+    @BeforeEach
+    void setUp() {
+        this.scania = new Scania(Color.black,1000);
+    }
+
+    @Test
+    @DisplayName("Test for move function, also tests trimFactor, gas, and brake")
+    void move() {
+        scania.startEngine();
+        scania.gas(1);
+        assertEquals(0, scania.getCords()[0]);
+        assertEquals(10.1, scania.getCords()[1]);
+        assertThrows(IllegalStateException.class, ()-> scania.changeTilt(30.0));
+        scania.stopEngine();
+        scania.changeTilt(30.0);
+        assertThrows(IllegalStateException.class, ()-> scania.gas(1));
+        scania.stopEngine();
+        scania.changeTilt(-30);
+        scania.startEngine();
+        scania.gas(1);
+        assertEquals(0, scania.getCords()[0]);
+        assertEquals(20.2, scania.getCords()[1]);
+    }
+
+    @Test
+    @DisplayName("Tilt angle interval")
+    void tiltInterval() {
+        assertThrows(IllegalArgumentException.class, ()-> scania.changeTilt(-1));
+        assertThrows(IllegalArgumentException.class, ()-> scania.changeTilt(71));
+        scania.changeTilt(60.0);
+        assertEquals(60, scania.getTilt());
     }
 }
