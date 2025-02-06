@@ -196,12 +196,12 @@ class ScaniaTest {
         scania.gas(1);
         assertEquals(0, scania.getCords()[0]);
         assertEquals(10.1, scania.getCords()[1]);
-        assertThrows(IllegalStateException.class, ()-> scania.changeTilt(30.0));
+        assertThrows(IllegalStateException.class, ()-> scania.changeTiltAngle(30.0));
         scania.stopEngine();
-        scania.changeTilt(30.0);
+        scania.changeTiltAngle(30.0);
         assertThrows(IllegalStateException.class, ()-> scania.gas(1));
         scania.stopEngine();
-        scania.changeTilt(-30);
+        scania.changeTiltAngle(-30);
         scania.startEngine();
         scania.gas(1);
         assertEquals(0, scania.getCords()[0]);
@@ -211,9 +211,70 @@ class ScaniaTest {
     @Test
     @DisplayName("Tilt angle interval")
     void tiltInterval() {
-        assertThrows(IllegalArgumentException.class, ()-> scania.changeTilt(-1));
-        assertThrows(IllegalArgumentException.class, ()-> scania.changeTilt(71));
-        scania.changeTilt(60.0);
-        assertEquals(60, scania.getTilt());
+        assertThrows(IllegalArgumentException.class, ()-> scania.changeTiltAngle(-1));
+        assertThrows(IllegalArgumentException.class, ()-> scania.changeTiltAngle(71));
+        scania.changeTiltAngle(60.0);
+        assertEquals(60, scania.getTiltAngle());
+    }
+}
+
+class CarTransportTest {
+    CarTransport carTransport;
+    CarTransport carTransport2;
+    Saab95 saab95;
+
+    @BeforeEach
+    void setUp() {
+        this.carTransport = new CarTransport(Color.black, 900, 3);
+        this.saab95 = new Saab95(Color.black, 120, false);
+    }
+
+    @Test
+    @DisplayName("Test loading a car/car transport")
+    void loadCarTransport() {
+        // Tilt
+        assertThrows(IllegalStateException.class, () -> carTransport.load(saab95));
+        carTransport.changeTiltState(true);
+        carTransport.load(saab95);
+        assertEquals(1, carTransport.getStorageSize());
+
+        // Storage
+        carTransport.load(saab95);
+        carTransport.load(saab95);
+        assertThrows(IllegalStateException.class, () -> carTransport.load(saab95));
+
+        // Loading a truck
+        carTransport2 = new CarTransport(Color.red, 788, 1);
+        assertThrows(IllegalStateException.class, ()-> carTransport.load(carTransport2));
+
+    }
+
+    @Test
+    @DisplayName("Test unloading a car")
+    void unloadCar() {
+        carTransport.changeTiltState(true);
+        carTransport.load(saab95);
+        carTransport.changeTiltState(false);
+        assertThrows(IllegalStateException.class, ()-> carTransport.unload());
+
+        assertEquals(1, carTransport.getStorageSize());
+
+        carTransport.changeTiltState(true);
+        carTransport.unload();
+        assertEquals(1, saab95.getCords()[0]);
+        assertEquals(1, saab95.getCords()[1]);
+
+        assertEquals(0, carTransport.getStorageSize());
+    }
+
+    @Test
+    @DisplayName("Test that loaded cars cords is the same as cartransport cords")
+    void move() {
+        carTransport.changeTiltState(true);
+        carTransport.load(saab95);
+        carTransport.changeTiltState(false);
+        carTransport.startEngine();
+        carTransport.gas(1);
+        assertEquals(Arrays.toString(carTransport.getCords()), Arrays.toString(saab95.getCords()));
     }
 }

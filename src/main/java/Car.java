@@ -47,6 +47,16 @@ public abstract class Car implements Movable{
     }
 
     /**
+     * Set cords of the car
+     *
+     * @param cords, the new cords to be set to
+     */
+    public void setCords(double[] cords) {
+        this.xCord = cords[0];
+        this.yCord = cords[1];
+    }
+
+    /**
      * A method to get nr of doors on car
      *
      * @return int, numbers of doors
@@ -139,7 +149,7 @@ public abstract class Car implements Movable{
 
     /**
      * Increses the speed of the car and move the car in the current heading
-     * @param amount factor to brake
+     * @param amount factor to gas
      */
     public void gas(double amount){
         if (0 <= amount && 1 >= amount) {
