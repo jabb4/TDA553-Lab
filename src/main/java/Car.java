@@ -34,6 +34,10 @@ public abstract class Car implements Movable{
         stopEngine();
     }
 
+    public String getModelName(){
+        return this.modelName;
+    }
+
     /**
      * Gets current cords of the car
      *

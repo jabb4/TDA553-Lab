@@ -73,7 +73,4 @@ public abstract class Truck extends Car{
             changeTiltState(this.currentTilt != 0);
         }
     }
-
-
-
 }
