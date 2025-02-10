@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 
 public class CarTransport extends Truck{
-    private int maxLoad;
     private CarStorage<Car> carStorage;
 
     public CarTransport(Color color, int enginePower, int maxLoad) {
         super(0,1,color,enginePower,"Car Transport");
-        this.maxLoad = maxLoad;
         this.carStorage = new CarStorage<>(maxLoad);
     }
 
