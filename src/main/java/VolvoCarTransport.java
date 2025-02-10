@@ -1,16 +1,17 @@
 import java.awt.*;
 
-public class Scania extends TiltingTruck{
+public class VolvoCarTransport extends CarTransport {
+    private CarStorage<Car> carStorage;
+
     /**
-     * Constructor for Car with specified attributes.
+     * Constructor for VolvoCarTransport
      *
      * @param color Color of the car
      * @param enginePower The power of the car's engine
      */
-    public Scania(Color color, int enginePower){
-        super(2, 0.0, 70.0, color, enginePower, "Scania Truck");
+    public VolvoCarTransport(Color color, int enginePower) {
+        super(2, color,enginePower, 100, "Car Transport");
     }
-
 
     /**
      * Sets speedFactor of vehicle

@@ -1,18 +1,50 @@
 import java.awt.*;
-import java.util.ArrayList;
 
 import static java.lang.Math.abs;
 
-public class CarTransport extends Truck{
+public abstract class CarTransport extends Truck{
     private int maxLoad;
     private CarStorage<Car> carStorage;
+    private boolean tilted;
 
-    public CarTransport(Color color, int enginePower, int maxLoad) {
-        super(0,1,color,enginePower,"Car Transport");
+    /**
+     * Constructor for CarTransport
+     *
+     * @param color Color of the car
+     * @param enginePower The power of the car's engine
+     * @param maxLoad Max load of Car Transport
+     * @param modelName Model name of the Car Transport
+     */
+    public CarTransport(int nrDoors, Color color, int enginePower, int maxLoad, String modelName) {
+        super(nrDoors,color,enginePower, modelName);
         this.maxLoad = maxLoad;
         this.carStorage = new CarStorage<>(maxLoad);
+        this.tilted = false;
     }
 
+
+    /**
+     * Gets current tilt of trailer
+     *
+     * @return boolean, current tilt state
+     */
+    public boolean isTilted(){
+        return this.tilted;
+    }
+
+
+    /**
+     * Changes the current tilt state of the car transport
+     */
+    public void changeTiltState(boolean state){
+        this.tilted = state;
+    }
+
+
+    /**
+     * Loads a car in the carStorage using the load() function of carStorage,
+     * and sets cords of car to the same as the car transport.
+     */
     public void load(Car car){
         //Check tilted
         if (!this.isTilted()) throw new IllegalStateException("Can not load car while trailer is not tilted");
@@ -28,6 +60,9 @@ public class CarTransport extends Truck{
         } else throw new IllegalStateException("Can not load car while car is too far away from trailer");
     }
 
+    /**
+     * Unloads the latest stored car using the unload() function of carStorage
+     */
     public void unload(){
         double[]newCords = new double[2];
         newCords[0] = this.getCords()[0] + 1;
@@ -40,10 +75,17 @@ public class CarTransport extends Truck{
 
     }
 
+    /**
+     * Returns the number of current stored cars in the car transport storage
+     *
+     * @return int, amount of stored cars
+     */
     public int getStorageSize(){return carStorage.storage.size();}
 
     /**
-     * Sets coords
+     * Overrides move() in order to check if the trailer is tilted,
+     * and sets the cords of all the cars in the Car Transports storage to
+     * the same as the Car Transport
      */
     @Override
     public void move() {
@@ -58,8 +100,4 @@ public class CarTransport extends Truck{
         }
     }
 
-    @Override
-    public double speedFactor() {
-        return getEnginePower() * 0.01;
-    }
 }
