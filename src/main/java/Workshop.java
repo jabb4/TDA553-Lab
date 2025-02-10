@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * A workshop for cars
+ * @param <T> the type of car to be able to handel
+ */
 public class Workshop<T extends Car> {
     private CarStorage<T> carStorage;
 

@@ -1,12 +1,14 @@
 import java.awt.*;
 
-public class Volvo240 extends Car{
+/**
+ * A Volvo240 car that is a subclass of car
+ */
+public class Volvo240 extends Car {
     private double trimFactor; //Used to calculate speedFactor
 
     /**
      * Constructor for Volvo240 with specified attributes.
      *
-     * @param nrDoors Number of doors on the car
      * @param color Color of the car
      * @param enginePower The power of the car's engine
      * @param trimFactor The car's trim factor

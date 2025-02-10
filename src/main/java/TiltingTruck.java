@@ -1,13 +1,13 @@
 import java.awt.*;
 
 
-public abstract class TiltingTruck extends Truck{
+public abstract class TiltingTruck extends Truck {
     private double minTilt;
     private double maxTilt;
     private double currentTilt;
 
     /**
-     * Constructor for Truck with specified attributes.
+     * Constructor for a TiltingTruck with specified attributes.
      *
      * @param nrDoors Number of doors
      * @param minTilt Minimum tilt
@@ -16,8 +16,8 @@ public abstract class TiltingTruck extends Truck{
      * @param enginePower The power of the car's engine
      * @param modelName The model name of the truck
      */
-    public TiltingTruck(int nrDoors, double minTilt, double maxTilt, Color color, int enginePower, String modelName) {
-        super(nrDoors, color, enginePower, modelName);
+    public TiltingTruck(int nrDoors, double minTilt, double maxTilt, Color color, int enginePower, String modelName, int maxLoad) {
+        super(nrDoors, color, enginePower, modelName, maxLoad);
         this.minTilt = minTilt;
         this.maxTilt = maxTilt;
         this.currentTilt = 0;

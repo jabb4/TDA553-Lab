@@ -187,7 +187,7 @@ class ScaniaTest {
 
     @BeforeEach
     void setUp() {
-        this.scania = new Scania(Color.black,1000);
+        this.scania = new Scania(Color.black,1000, 3);
     }
 
     @Test
@@ -219,14 +219,14 @@ class ScaniaTest {
     }
 }
 
-class CarTransportTest {
-    CarTransport carTransport;
-    CarTransport carTransport2;
+class TruckCarTransportTest {
+    TruckCarTransport truckCarTransport;
+    TruckCarTransport truckCarTransport2;
     Saab95 saab95;
 
     @BeforeEach
     void setUp() {
-        this.carTransport = new CarTransport(Color.black, 900, 3);
+        this.truckCarTransport = new TruckCarTransport(Color.black, 100, "TruckCarTransport", 3);
         this.saab95 = new Saab95(Color.black, 120, false);
     }
 
@@ -234,49 +234,49 @@ class CarTransportTest {
     @DisplayName("Test loading a car/car transport")
     void loadCarTransport() {
         // Tilt
-        assertThrows(IllegalStateException.class, () -> carTransport.load(saab95));
-        carTransport.changeTiltState(true);
-        carTransport.load(saab95);
-        assertEquals(1, carTransport.getStorageSize());
+        assertThrows(IllegalStateException.class, () -> truckCarTransport.load(saab95));
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.load(saab95);
+        assertEquals(1, truckCarTransport.getStorageSize());
 
         // Storage
-        carTransport.load(saab95);
-        carTransport.load(saab95);
-        assertThrows(IllegalStateException.class, () -> carTransport.load(saab95));
+        truckCarTransport.load(saab95);
+        truckCarTransport.load(saab95);
+        assertThrows(IllegalStateException.class, () -> truckCarTransport.load(saab95));
 
         // Loading a truck
-        carTransport2 = new CarTransport(Color.red, 788, 1);
-        assertThrows(IllegalStateException.class, ()-> carTransport.load(carTransport2));
+        truckCarTransport2 = new TruckCarTransport(Color.red, 788, "1", 10);
+        assertThrows(IllegalStateException.class, ()-> truckCarTransport.load(truckCarTransport2));
 
     }
 
     @Test
     @DisplayName("Test unloading a car")
     void unloadCar() {
-        carTransport.changeTiltState(true);
-        carTransport.load(saab95);
-        carTransport.changeTiltState(false);
-        assertThrows(IllegalStateException.class, ()-> carTransport.unload());
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.load(saab95);
+        truckCarTransport.changeTiltState(false);
+        assertThrows(IllegalStateException.class, ()-> truckCarTransport.unload());
 
-        assertEquals(1, carTransport.getStorageSize());
+        assertEquals(1, truckCarTransport.getStorageSize());
 
-        carTransport.changeTiltState(true);
-        carTransport.unload();
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.unload();
         assertEquals(1, saab95.getCords()[0]);
         assertEquals(1, saab95.getCords()[1]);
 
-        assertEquals(0, carTransport.getStorageSize());
+        assertEquals(0, truckCarTransport.getStorageSize());
     }
 
     @Test
     @DisplayName("Test that loaded cars cords is the same as carTransport cords")
     void move() {
-        carTransport.changeTiltState(true);
-        carTransport.load(saab95);
-        carTransport.changeTiltState(false);
-        carTransport.startEngine();
-        carTransport.gas(1);
-        assertEquals(Arrays.toString(carTransport.getCords()), Arrays.toString(saab95.getCords()));
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.load(saab95);
+        truckCarTransport.changeTiltState(false);
+        truckCarTransport.startEngine();
+        truckCarTransport.gas(1);
+        assertEquals(Arrays.toString(truckCarTransport.getCords()), Arrays.toString(saab95.getCords()));
     }
 }
 
@@ -288,8 +288,8 @@ class WorkshopTest {
 
     @BeforeEach
     void setUp() {
-        workshopVolvo = new Workshop<>(1);
-        workshopAll = new Workshop<>(1);
+        workshopVolvo = new Workshop<>(3);
+        workshopAll = new Workshop<>(3);
         volvo240 = new Volvo240(Color.black,125,1.25);
         saab95 = new Saab95(Color.black, 120, false);
     }
@@ -311,7 +311,7 @@ class WorkshopTest {
     @Test
     void unload(){
         workshopVolvo.load(volvo240);
-        assertEquals("Volvo240",workshopVolvo.unload().getModelName());
+        assertEquals("Volvo 240",workshopVolvo.unload().getModelName());
     }
 
 }

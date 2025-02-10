@@ -1,6 +1,10 @@
 import java.awt.*;
 
-public abstract class Truck extends Car{
+/**
+ * Generic representation of a truck
+ */
+public abstract class Truck extends Car {
+    private int maxLoad;
     /**
      * Constructor for Truck with specified attributes.
      *
@@ -9,8 +13,10 @@ public abstract class Truck extends Car{
      * @param enginePower The power of the car's engine
      * @param modelName The model name of the truck
      */
-    public Truck(int nrDoors, Color color, int enginePower, String modelName) {
+    public Truck(int nrDoors, Color color, int enginePower, String modelName, int maxLoad) {
         super(nrDoors, color, enginePower, modelName);
+        this.maxLoad = maxLoad;
     }
+
 }
 
