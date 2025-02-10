@@ -288,8 +288,8 @@ class WorkshopTest {
 
     @BeforeEach
     void setUp() {
-        workshopVolvo = new Workshop<>(3);
-        workshopAll = new Workshop<>(3);
+        workshopVolvo = new Workshop<>(1);
+        workshopAll = new Workshop<>(1);
         volvo240 = new Volvo240(Color.black,125,1.25);
         saab95 = new Saab95(Color.black, 120, false);
     }
@@ -311,7 +311,7 @@ class WorkshopTest {
     @Test
     void unload(){
         workshopVolvo.load(volvo240);
-        assertEquals("Volvo 240",workshopVolvo.unload().getModelName());
+        assertEquals("Volvo240",workshopVolvo.unload().getModelName());
     }
 
 }

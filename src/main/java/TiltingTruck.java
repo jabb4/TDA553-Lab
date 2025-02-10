@@ -9,6 +9,7 @@ public abstract class TiltingTruck extends Truck{
     /**
      * Constructor for Truck with specified attributes.
      *
+     * @param nrDoors Number of doors
      * @param minTilt Minimum tilt
      * @param maxTilt Maximum tilt
      * @param color Color of the car

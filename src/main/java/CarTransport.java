@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
 
 import static java.lang.Math.abs;
 
@@ -11,6 +10,7 @@ public abstract class CarTransport extends Truck{
     /**
      * Constructor for CarTransport
      *
+     * @param nrDoors Number of doors
      * @param color Color of the car
      * @param enginePower The power of the car's engine
      * @param maxLoad Max load of Car Transport
