@@ -34,6 +34,10 @@ public abstract class Car implements Movable{
         stopEngine();
     }
 
+    public String getModelName(){
+        return this.modelName;
+    }
+
     /**
      * Gets current cords of the car
      *
@@ -44,6 +48,16 @@ public abstract class Car implements Movable{
             cords[0]=this.xCord;
             cords[1]=this.yCord;
             return cords;
+    }
+
+    /**
+     * Set cords of the car
+     *
+     * @param cords, the new cords to be set to
+     */
+    public void setCords(double[] cords) {
+        this.xCord = cords[0];
+        this.yCord = cords[1];
     }
 
     /**
@@ -139,7 +153,7 @@ public abstract class Car implements Movable{
 
     /**
      * Increses the speed of the car and move the car in the current heading
-     * @param amount factor to brake
+     * @param amount factor to gas
      */
     public void gas(double amount){
         if (0 <= amount && 1 >= amount) {

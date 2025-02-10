@@ -6,6 +6,7 @@ import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
+
 class Saab95Test {
     Saab95 saab95;
 
@@ -85,18 +86,18 @@ class Saab95Test {
     @DisplayName("Turn left")
     void turnLeft() {
         saab95.turnLeft();
-        assertEquals(Car.headings.west, saab95.getHeading());
+        assertEquals(Car.headings.WEST, saab95.getHeading());
         saab95.turnLeft();
-        assertEquals(Car.headings.south, saab95.getHeading());
+        assertEquals(Car.headings.SOUTH, saab95.getHeading());
     }
 
     @Test
     @DisplayName("Check turn right")
     void turnRight() {
         saab95.turnRight();
-        assertEquals(Car.headings.east, saab95.getHeading());
+        assertEquals(Car.headings.EAST, saab95.getHeading());
         saab95.turnRight();
-        assertEquals(Car.headings.south, saab95.getHeading());
+        assertEquals(Car.headings.SOUTH, saab95.getHeading());
     }
 
     @Test
@@ -179,4 +180,180 @@ class Volvo240Test {
         assertEquals(0, volvo240.getCords()[0]);
         assertEquals(1.6625, volvo240.getCords()[1]);
     }
+}
+
+class ScaniaTest {
+    Scania scania;
+
+    @BeforeEach
+    void setUp() {
+        this.scania = new Scania(Color.black,1000, 3);
+    }
+
+    @Test
+    @DisplayName("Test for move function, also tests trimFactor, gas, and brake")
+    void move() {
+        scania.startEngine();
+        scania.gas(1);
+        assertEquals(0, scania.getCords()[0]);
+        assertEquals(10.1, scania.getCords()[1]);
+        assertThrows(IllegalStateException.class, ()-> scania.changeTiltAngle(30.0));
+        scania.stopEngine();
+        scania.changeTiltAngle(30.0);
+        assertThrows(IllegalStateException.class, ()-> scania.gas(1));
+        scania.stopEngine();
+        scania.changeTiltAngle(-30);
+        scania.startEngine();
+        scania.gas(1);
+        assertEquals(0, scania.getCords()[0]);
+        assertEquals(20.2, scania.getCords()[1]);
+    }
+
+    @Test
+    @DisplayName("Tilt angle interval")
+    void tiltInterval() {
+        assertThrows(IllegalArgumentException.class, ()-> scania.changeTiltAngle(-1));
+        assertThrows(IllegalArgumentException.class, ()-> scania.changeTiltAngle(71));
+        scania.changeTiltAngle(60.0);
+        assertEquals(60, scania.getTiltAngle());
+    }
+}
+
+class TruckCarTransportTest {
+    TruckCarTransport truckCarTransport;
+    TruckCarTransport truckCarTransport2;
+    Saab95 saab95;
+
+    @BeforeEach
+    void setUp() {
+        this.truckCarTransport = new TruckCarTransport(Color.black, 100, "TruckCarTransport", 3);
+        this.saab95 = new Saab95(Color.black, 120, false);
+    }
+
+    @Test
+    @DisplayName("Test loading a car/car transport")
+    void loadCarTransport() {
+        // Tilt
+        assertThrows(IllegalStateException.class, () -> truckCarTransport.load(saab95));
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.load(saab95);
+        assertEquals(1, truckCarTransport.getStorageSize());
+
+        // Storage
+        truckCarTransport.load(saab95);
+        truckCarTransport.load(saab95);
+        assertThrows(IllegalStateException.class, () -> truckCarTransport.load(saab95));
+
+        // Loading a truck
+        truckCarTransport2 = new TruckCarTransport(Color.red, 788, "1", 10);
+        assertThrows(IllegalStateException.class, ()-> truckCarTransport.load(truckCarTransport2));
+
+    }
+
+    @Test
+    @DisplayName("Test unloading a car")
+    void unloadCar() {
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.load(saab95);
+        truckCarTransport.changeTiltState(false);
+        assertThrows(IllegalStateException.class, ()-> truckCarTransport.unload());
+
+        assertEquals(1, truckCarTransport.getStorageSize());
+
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.unload();
+        assertEquals(1, saab95.getCords()[0]);
+        assertEquals(1, saab95.getCords()[1]);
+
+        assertEquals(0, truckCarTransport.getStorageSize());
+    }
+
+    @Test
+    @DisplayName("Test that loaded cars cords is the same as carTransport cords")
+    void move() {
+        truckCarTransport.changeTiltState(true);
+        truckCarTransport.load(saab95);
+        truckCarTransport.changeTiltState(false);
+        truckCarTransport.startEngine();
+        truckCarTransport.gas(1);
+        assertEquals(Arrays.toString(truckCarTransport.getCords()), Arrays.toString(saab95.getCords()));
+    }
+}
+
+class WorkshopTest {
+    Workshop<Volvo240> workshopVolvo;
+    Workshop<Car> workshopAll;
+    Volvo240 volvo240;
+    Saab95 saab95;
+
+    @BeforeEach
+    void setUp() {
+        workshopVolvo = new Workshop<>(3);
+        workshopAll = new Workshop<>(3);
+        volvo240 = new Volvo240(Color.black,125,1.25);
+        saab95 = new Saab95(Color.black, 120, false);
+    }
+
+    @Test
+    @DisplayName("Test load function to not be compile error")
+    void load(){
+        workshopVolvo.load(volvo240);
+        assertEquals(1, workshopVolvo.getStorageSize());
+
+        // ! Uncomment below for compile error
+        // workshopVolvo.load(saab95);
+
+        workshopAll.load(volvo240);
+        workshopAll.load(saab95);
+        assertEquals(2, workshopAll.getStorageSize());
+    }
+
+    @Test
+    void unload(){
+        workshopVolvo.load(volvo240);
+        assertEquals("Volvo 240",workshopVolvo.unload().getModelName());
+    }
+
+}
+
+
+class CarStorageTest {
+    CarStorage<Car> carStorage;
+    CarStorage<Volvo240> carStorageVolvo;
+    Volvo240 volvo240;
+    Saab95 saab95;
+
+    @BeforeEach
+    void setUp() {
+        carStorage = new CarStorage<>(2);
+        carStorageVolvo = new CarStorage<>(1);
+        volvo240 = new Volvo240(Color.black,125,1.25);
+        saab95 = new Saab95(Color.black, 120, false);
+    }
+
+    @Test
+    @DisplayName("Load Test")
+    public void load() {
+        carStorage.load(volvo240);
+        carStorage.load(saab95);
+        assertEquals(2, carStorage.storage.size());
+        assertThrows(IllegalStateException.class, ()-> carStorage.load(volvo240));
+
+        carStorageVolvo.load(volvo240);
+        assertEquals(1, carStorageVolvo.storage.size());
+        assertThrows(IllegalStateException.class, ()-> carStorageVolvo.load(volvo240));
+    }
+
+    @Test
+    @DisplayName("Unload test")
+    public void unload() {
+        carStorage.load(volvo240);
+        carStorage.load(saab95);
+        carStorage.unload();
+        assertEquals(1, carStorage.storage.size());
+        carStorage.unload();
+        assertThrows(IllegalStateException.class, ()-> carStorage.unload());
+
+    }
+
 }
