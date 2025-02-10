@@ -1,8 +1,6 @@
 import java.awt.*;
 
 public class VolvoCarTransport extends CarTransport {
-    private CarStorage<Car> carStorage;
-
     /**
      * Constructor for VolvoCarTransport
      *
