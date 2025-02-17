@@ -17,6 +17,8 @@ public abstract class Car implements Movable{
         NORTH, SOUTH, EAST, WEST
     }
     private headings currentHeading = headings.NORTH;
+    private boolean driveable = true;
+    private boolean engineState = false;
 
     /**
      * Constructor for Car with specified attributes.
@@ -118,13 +120,14 @@ public abstract class Car implements Movable{
      * When starting car, sets current speed to
      */
     public void startEngine(){
-        this.currentSpeed = 0.1;
+        this.engineState = true;
     }
 
     /**
      * When stopping car engine, set current speed
      */
     public void stopEngine(){
+        this.engineState = false;
         this.currentSpeed = 0;
     }
 
@@ -138,7 +141,7 @@ public abstract class Car implements Movable{
      * @param amount The amount factor to increes the speed with.
      */
     public void incrementSpeed(double amount){
-            // prevents from decressing speed by doing Math.max()
+            // prevents from decreasing speed by doing Math.max()
         this.currentSpeed = Math.min(getCurrentSpeed() + Math.max(speedFactor() * amount,0), this.enginePower);
     }
 
@@ -147,7 +150,7 @@ public abstract class Car implements Movable{
      * @param amount The amount factor to decrese the speed with.
      */
     public void decrementSpeed(double amount){
-            // prevents from incressing speed by doing Math.max()
+            // prevents from increasing speed by doing Math.max()
         this.currentSpeed = Math.max(getCurrentSpeed() - Math.max(speedFactor() * amount,0),0);
     }
 
@@ -156,22 +159,26 @@ public abstract class Car implements Movable{
      * @param amount factor to gas
      */
     public void gas(double amount){
-        if (0 <= amount && 1 >= amount) {
-            incrementSpeed(amount);
-            move();
-        } else {
-            throw new IllegalArgumentException("amount must be between 0 and 1");
-        }
+        if (this.driveable) {
+            if (this.engineState) {
+                if (0 <= amount && 1 >= amount) {
+                    incrementSpeed(amount);
+                } else {
+                    throw new IllegalArgumentException("amount must be between 0 and 1");
+                }
+            } else {
+                throw new IllegalStateException(this.modelName + "can not gas due to engine not being on");
+            }
+        } else { throw new IllegalStateException(this.modelName + "can not gas due to not being driveable"); }
     }
 
     /**
-     * Decress the speed of the car and move the car in the current heading
+     * Decreases the speed of the car and move the car in the current heading
      * @param amount factor to brake
      */
     public void brake(double amount){
         if (0 <= amount && 1 >= amount) {
             decrementSpeed(amount);
-            move();
         } else {
             throw new IllegalArgumentException("amount must be between 0 and 1");
         }
@@ -182,20 +189,24 @@ public abstract class Car implements Movable{
      */
     @Override
     public void move() {
-        switch (this.currentHeading) {
-            case NORTH:
-                this.yCord += getCurrentSpeed();
-                break;
-            case EAST:
-                this.xCord += getCurrentSpeed();
-                break;
-            case SOUTH:
-                this.yCord -= getCurrentSpeed();
-                break;
-            case WEST:
-                this.xCord -= getCurrentSpeed();
-                break;
-        }
+         if (this.driveable && this.engineState) {
+            switch (this.currentHeading) {
+                case NORTH:
+                    this.yCord += getCurrentSpeed();
+                    break;
+                case EAST:
+                    this.xCord += getCurrentSpeed();
+                    break;
+                case SOUTH:
+                    this.yCord -= getCurrentSpeed();
+                    break;
+                case WEST:
+                    this.xCord -= getCurrentSpeed();
+                    break;
+            }
+        } else {
+             throw new IllegalStateException("This car can not drive");
+         }
     }
 
     /**
@@ -238,6 +249,14 @@ public abstract class Car implements Movable{
                this.currentHeading = headings.NORTH;
                 break;
         }
+    }
+
+    public boolean getDriveable() {
+        return this.driveable;
+    }
+
+    public void setDriveable(boolean input) {
+        this.driveable = input;
     }
 
 }
