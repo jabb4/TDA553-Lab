@@ -1,0 +1,141 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+enum headings {
+NORTH
+SOUTH
+EAST
+WEST
+}
+
+abstract class Car {
+- nrDoors : Int
+- enginePower : double
+- currentSpeed : double
+- color : Color
+- modelName : String
+- xCord : double
+- yCord : double
+- driveable : boolean
+- engineState : boolean
+
++ move()
++ gas()
++ brake()
++ turnLeft()
++ turnRight()
++ setCords()
++ startEngine()
++ stopEngine()
+}
+
+abstract class Truck {
+- maxload : Int
+}
+
+abstract class TiltingTruck {
++ changeTiltAngle() : void
+
+- minTilt : double
+- maxTilt : double
+- currentTilt : double
+}
+
+class CarController {
+start() : void
+stop() : void
+gas() : void
+brake() : void
+liftLiftBed() : void
+lowerLiftBed() : void
+TurboOn() : void
+TurboOff() : void
+}
+
+class CarStorage {
++ load() : void
++ unload() : T
+
+- storage : ArrayList<T>
+- maxLoad : Int
+}
+class CarTransport {
++ load() : void
++ unload() : void
++ updateCarCords() : void
++ getStorageSize() : int
+
+- carStorage : CarStorage<Car>
+- maxLoad : Int
+}
+
+class CarView {
+
+}
+class DrawPanel {
+# paintComponent() : void
+moveit() : void
+}
+class Saab95 {
++ turboStatus() : boolean
++ setTurboOn() : void
++ setTurboOff() : void
++ speedFactor() : double
+
+- turboOn : boolean
+}
+
+class Scania {
+speedFactor() : double
+}
+
+class TruckCarTransport {
++ isTilted() : boolean
++ load() : void
++ unload() : void
++ changeTiltState() : void
+
+- tilted : boolean
+- carTransport : CarTransport
+}
+
+class Volvo240 {
++ speedFactor() : double
+
+- trimFactor : double
+}
+
+class Workshop {
++ load() : void
++ unload() : T
++ getStorageSize() : int
+}
+
+interface Movable {
+move()
+turnLeft()
+turnRight()
+}
+
+Movable <|.. Car
+headings *-- Car : use
+Car <|-- Truck
+Car <|-- Volvo240
+Car <|-- Saab95
+Truck <|-- TiltingTruck
+TiltingTruck <|-- Scania
+Truck <|-- TruckCarTransport
+CarStorage <-- CarTransport
+CarStorage <-- Workshop
+CarTransport <-- TruckCarTransport
+Car <.. Workshop
+
+CarView <-- CarController
+CarController <-- CarView
+CarView --> DrawPanel
+
+CarController --> Volvo240
+CarController --> Saab95
+CarController --> Scania
+
+@enduml
