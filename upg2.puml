@@ -134,8 +134,6 @@ CarView <-- CarController
 CarController <-- CarView
 CarView --> DrawPanel
 
-CarController --> Volvo240
-CarController --> Saab95
-CarController --> Scania
+CarController --> Car
 
 @enduml

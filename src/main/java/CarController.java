@@ -117,9 +117,9 @@ public class CarController {
 
     void liftLiftBed() {
         for (Car car : cars) {
-            if (car instanceof Scania) {
+            if (car instanceof Scania scania) {
                 try{
-                    ((Scania) car).changeTiltAngle(1.0);
+                    scania.changeTiltAngle(1.0);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -129,9 +129,9 @@ public class CarController {
 
     void lowerLiftBed() {
         for (Car car : cars) {
-            if (car instanceof Scania) {
+            if (car instanceof Scania scania) {
                 try{
-                    ((Scania) car).changeTiltAngle(-1.0);
+                    scania.changeTiltAngle(-1.0);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -142,8 +142,8 @@ public class CarController {
     // Calls the gas method for each car once
     void TurboOn() {
         for (Car car : cars) {
-            if (car instanceof Saab95) {
-                ((Saab95) car).setTurboOn();
+            if (car instanceof Saab95 saab95) {
+                saab95.setTurboOn();
             }
         }
     }
@@ -151,8 +151,8 @@ public class CarController {
     // Calls the gas method for each car once
     void TurboOff() {
         for (Car car : cars) {
-            if (car instanceof Saab95) {
-                ((Saab95) car).setTurboOff();
+            if (car instanceof Saab95 saab95) {
+                saab95.setTurboOff();
             }
         }
     }

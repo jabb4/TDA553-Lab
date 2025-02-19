@@ -66,6 +66,12 @@ _CarStorage_ hanterar lagring av bilar, och varje funktion inom _CarStorage_; _L
 
 - Skapa nytt interface Storage, och justera så att CarStorage implementerar detta.
   - CarStorage: Flytta updateCarCords och getStorageSize från CarTransport till CarStorage. Ta bort classen CarTransport.
-- IsNear: Skapa som ny klass. Skapa en metod som tar in 3 parametrar, två koordinater av två objekt och hur "känslig" funktionen är.
-  - TruckCarTransport: Ta bort carTransport och justera TruckCarTransport så att den tar in en klass som implementerar Storage. Implementera IsNear istället för långa if satser.
-    - Ändra så att TruckCarTransport är en subclass av tilting truck, och ta bort tilting truck funktioner ifrån TruckCarTransport. (Ev justeras efter vi har frågat)
+
+- Utils: Skapa som ny klass. Skapa en metod i klassen som tar in 3 parametrar, två koordinater av två objekt och hur "känslig" funktionen är.
+  - Ta bort carTransport klassen. Justera TruckCarTransport så att den tar in en klass som implementerar Storage. Använd isNear från Utils istället för långa if satser för att kolla om den kan load/unload.
+  - Ändra TiltingTruck till en vanlig class med namnet Tilt. Ta bort move().
+    - Ändra så att TruckCarTransport och Scania tar in en instans av Tilt. Skapa metoderna changeTiltAngel, isTilted, Move för Scania och changeTiltState, isTilted, Move för TruckCarTransport.
+
+- Döp om CarController till CarModel. Den hanterar all logik. Döp om CarView till CarController. DrawPanel målar upp allt.
+  - CarController ska endast ha kvar saker som "styr" bilarna. Det visuella sker genom CarView. 
+  - Det som nu finns i DrawPanel ska flyttas in i CarView.

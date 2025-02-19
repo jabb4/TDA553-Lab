@@ -33,7 +33,7 @@ abstract class Truck {
 - maxload : Int
 }
 
-abstract class TiltingTruck {
+class Tilt {
 + changeTiltAngle() : void
 + isTilted() : boolean
 
@@ -43,6 +43,17 @@ abstract class TiltingTruck {
 }
 
 class CarController {
+ActionListeners
+}
+
+class CarModel {
+- TimerListener : class
+- delay : int
+- timer : Timer
++ cars : ArrayList<Car>
++ workshop : Workshop<Volvo240>
+
++ main()
 start() : void
 stop() : void
 gas() : void
@@ -53,7 +64,7 @@ TurboOn() : void
 TurboOff() : void
 }
 
-class IsNear {
+class Utilities {
 + isNear() : boolean
 }
 
@@ -69,9 +80,6 @@ class CarStorage {
 }
 
 class CarView {
-
-}
-class DrawPanel {
 # paintComponent() : void
 
 moveit() : void
@@ -87,15 +95,24 @@ class Saab95 {
 }
 
 class Scania {
-speedFactor() : double
++ speedFactor() : double
++ changeTiltAngle() : void
++ isTilted() : boolean
++ move() : void
+
+- tilt : Tilt
 }
 
 class TruckCarTransport {
 + load() : void
 + unload() : void
++ speedFactor() : double
 + changeTiltState() : void
++ isTilted() : boolean
++ move() : void
 
-- carStorage : CarStorage
+- carStorage : Storage
+- tilt : Tilt
 }
 
 class Volvo240 {
@@ -128,21 +145,20 @@ headings *-- Car : use
 Car <|-- Truck
 Car <|-- Volvo240
 Car <|-- Saab95
-Truck <|-- TiltingTruck
-TiltingTruck <|-- Scania
-TiltingTruck <|-- TruckCarTransport
-CarStorage <-- TruckCarTransport
-IsNear <-- TruckCarTransport
+Tilt <-- Scania
+Truck <|-- Scania
+Tilt <-- TruckCarTransport
+Truck <|-- TruckCarTransport
+Storage <-- TruckCarTransport
+Utilities <-- TruckCarTransport
 CarStorage <-- Workshop
 Storage <|.. CarStorage
 Car <.. Workshop
 
-CarView <-- CarController
-CarController <-- CarView
-CarView --> DrawPanel
+CarModel <-- CarController
+CarController --> CarView
+CarModel --> CarView
 
-CarController --> Volvo240
-CarController --> Saab95
-CarController --> Scania
+CarModel --> Car
 
 @enduml
