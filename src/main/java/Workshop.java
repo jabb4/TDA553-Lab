@@ -13,10 +13,17 @@ public class Workshop<T extends Car> {
 
     public void load(T car) {
         this.carStorage.load(car);
+        car.setDriveable(false);
     }
 
     public T unload() {
-        return this.carStorage.unload();
+        T unloaded = this.carStorage.unload();
+        unloaded.setDriveable(true);
+        return unloaded;
+    }
+
+    public CarStorage<T> getLoaded() {
+        return this.carStorage;
     }
 
     public int getStorageSize() {

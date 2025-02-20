@@ -1,0 +1,164 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+enum headings {
+NORTH
+SOUTH
+EAST
+WEST
+}
+
+abstract class Car {
+- nrDoors : Int
+- enginePower : double
+- currentSpeed : double
+- color : Color
+- modelName : String
+- xCord : double
+- yCord : double
+- driveable : boolean
+- engineState : boolean
+
++ move()
++ gas()
++ brake()
++ turnLeft()
++ turnRight()
++ setCords()
++ startEngine()
++ stopEngine()
+}
+
+abstract class Truck {
+- maxload : Int
+}
+
+class Tilt {
++ changeTiltAngle() : void
++ isTilted() : boolean
+
+- minTilt : double
+- maxTilt : double
+- currentTilt : double
+}
+
+class CarController {
+ActionListeners
+}
+
+class CarModel {
+- TimerListener : class
+- delay : int
+- timer : Timer
++ cars : ArrayList<Car>
++ workshop : Workshop<Volvo240>
+
++ main()
+start() : void
+stop() : void
+gas() : void
+brake() : void
+liftLiftBed() : void
+lowerLiftBed() : void
+TurboOn() : void
+TurboOff() : void
+}
+
+class Utilities {
++ isNear() : boolean
+}
+
+class CarStorage {
++ load() : void
++ unload() : T
++ updateCarCords() : void
++ getStorageSize() : int
+
+
+- storage : ArrayList<T>
+- maxLoad : Int
+}
+
+class CarView {
+# paintComponent() : void
+
+moveit() : void
+}
+
+class Saab95 {
++ turboStatus() : boolean
++ setTurboOn() : void
++ setTurboOff() : void
++ speedFactor() : double
+
+- turboOn : boolean
+}
+
+class Scania {
++ speedFactor() : double
++ changeTiltAngle() : void
++ isTilted() : boolean
++ move() : void
+
+- tilt : Tilt
+}
+
+class TruckCarTransport {
++ load() : void
++ unload() : void
++ speedFactor() : double
++ changeTiltState() : void
++ isTilted() : boolean
++ move() : void
+
+- carStorage : Storage
+- tilt : Tilt
+}
+
+class Volvo240 {
++ speedFactor() : double
+
+- trimFactor : double
+}
+
+class Workshop {
++ load() : void
++ unload() : T
++ getStorageSize() : int
+
+- carStorage : CarStorage
+}
+
+interface Movable {
+move()
+turnLeft()
+turnRight()
+}
+
+interface Storage {
+load()
+unload()
+}
+
+Movable <|.. Car
+headings *-- Car : use
+Car <|-- Truck
+Car <|-- Volvo240
+Car <|-- Saab95
+Tilt <-- Scania
+Truck <|-- Scania
+Tilt <-- TruckCarTransport
+Truck <|-- TruckCarTransport
+Storage <-- TruckCarTransport
+Utilities <-- TruckCarTransport
+CarStorage <-- Workshop
+Storage <|.. CarStorage
+Car <.. Workshop
+
+CarModel <-- CarController
+CarController --> CarView
+CarModel --> CarView
+
+CarModel --> Car
+
+@enduml

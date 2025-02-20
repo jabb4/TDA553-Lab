@@ -26,6 +26,9 @@ public class CarStorage<T> {
         if (storage.size() >= maxLoad) {
             throw new IllegalStateException("The storage is full");
         }
+        if (storage.contains(car)){
+            throw new IllegalArgumentException("The car is already in the storage");
+        }
         storage.add(car);
     }
 
