@@ -13,8 +13,8 @@ public class Volvo240 extends Car {
      * @param enginePower The power of the car's engine
      * @param trimFactor The car's trim factor
      */
-    public Volvo240(Color color, int enginePower, double trimFactor){
-        super(4, color, enginePower, "Volvo 240");
+    public Volvo240(Color color, int enginePower, double trimFactor, double[] cords){
+        super(4, color, enginePower, "Volvo 240", cords);
         if (trimFactor < 0) {
             throw new IllegalArgumentException("trimFactor must be a positive number");
         }

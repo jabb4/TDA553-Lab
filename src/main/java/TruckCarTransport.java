@@ -11,8 +11,8 @@ public class TruckCarTransport extends Truck {
      * @param enginePower The power of the car's engine
      * @param modelName The model name of the truck
      */
-    public TruckCarTransport(Color color, int enginePower, String modelName,int maxLoad) {
-        super(2, color, enginePower, modelName, maxLoad);
+    public TruckCarTransport(Color color, int enginePower, String modelName,int maxLoad, double[] cords) {
+        super(2, color, enginePower, modelName, maxLoad, cords);
         this.carTransport = new CarTransport(maxLoad);
         this.tilted = false;
     }

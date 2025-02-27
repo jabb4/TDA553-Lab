@@ -13,8 +13,8 @@ public abstract class Truck extends Car {
      * @param enginePower The power of the car's engine
      * @param modelName The model name of the truck
      */
-    public Truck(int nrDoors, Color color, int enginePower, String modelName, int maxLoad) {
-        super(nrDoors, color, enginePower, modelName);
+    public Truck(int nrDoors, Color color, int enginePower, String modelName, int maxLoad, double[] cords) {
+        super(nrDoors, color, enginePower, modelName, cords);
         this.maxLoad = maxLoad;
     }
 

@@ -15,7 +15,7 @@ Detta gör t.ex. att vi lätt kan skapa nya bilar utan att skriva om så mycket 
 
 Vår kod i detta projekt har ganska hög coupling i specifika fall, detta då några av de olika klasserna och modulerna är nära sammanhängande. 
 _CarController_ är ett bra exempel på det här, då den skapar olika objekt av _Saab95_, _Volvo240_ och _Scania_, och använder deras funktioner.
-Detta leder till att ifall en funktion i _Car_, exempelvis _Gas()_, skulle byta namn till _Drive()_, skulle även funktioner inom CarController manuellt behöva förändras till _Drive()_.
+Detta leder till att ifall en funktion i _Car_, exempelvis _Gas()_, skulle byta namn till _Drive()_, skulle även funktioner inom CarModel manuellt behöva förändras till _Drive()_.
 Även _CarStorage_, och till viss del _TruckCarTransport_, fungerar på detta sätt och har liknande problem.
 
 I dessa fall känns det nödvändigt med använda tight coupling, då vi i _CarController_ behöver använda funktioner ifrån bilarnas klasser.

@@ -16,8 +16,8 @@ public abstract class TiltingTruck extends Truck {
      * @param enginePower The power of the car's engine
      * @param modelName The model name of the truck
      */
-    public TiltingTruck(int nrDoors, double minTilt, double maxTilt, Color color, int enginePower, String modelName, int maxLoad) {
-        super(nrDoors, color, enginePower, modelName, maxLoad);
+    public TiltingTruck(int nrDoors, double minTilt, double maxTilt, Color color, int enginePower, String modelName, int maxLoad, double[] cords) {
+        super(nrDoors, color, enginePower, modelName, maxLoad, cords);
         this.minTilt = minTilt;
         this.maxTilt = maxTilt;
         this.currentTilt = 0;

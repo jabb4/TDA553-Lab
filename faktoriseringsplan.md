@@ -8,7 +8,7 @@
     - Ändra TiltingTruck till en vanlig class med namnet Tilt. Ta bort move().
         - Ändra så att TruckCarTransport och Scania tar in en instans av Tilt. Skapa metoderna changeTiltAngel, isTilted, Move för Scania och changeTiltState, isTilted, Move för TruckCarTransport. Gör så att de använder sig av tilt för att uppnå denna funtionallitet.
 
-- Döp om CarController till CarModel då CarControllers funktionalitet ska finnas där. Skapa ny CarController som istället kommer att hantera alla action listeners; alltså funktionen av knapparna. CarView kommer att hantera att måla upp världen och bilarna.
-    - ActionListeners i CarView flyttas till en ny class: CarController
-      - Det som nu finns i DrawPanel ska flyttas in i CarView.
-        - ta bort DrawPanel
+- Döp om CarModel till CarModel då CarControllers funktionalitet ska finnas där. Skapa ny CarModel som istället kommer att hantera alla action listeners; alltså funktionen av knapparna. CarView kommer att hantera att måla upp världen och bilarna.
+    - ActionListeners i CarView flyttas till en ny class: CarModel
+      - Det som nu finns i CarView ska flyttas in i CarView.
+        - ta bort CarView

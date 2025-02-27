@@ -10,8 +10,8 @@ public class Saab95 extends Car {
      * @param enginePower The power of the car's engine
      * @param turboOn The turbo function of the car
      */
-    public Saab95(Color color, int enginePower, boolean turboOn){
-        super(4, color, enginePower, "Saab95");
+    public Saab95(Color color, int enginePower, boolean turboOn, double[] cords){
+        super(4, color, enginePower, "Saab95", cords);
 	    this.turboOn = turboOn;
     }
 

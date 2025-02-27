@@ -7,8 +7,8 @@ public class Scania extends TiltingTruck {
      * @param color Color of the car
      * @param enginePower The power of the car's engine
      */
-    public Scania(Color color, int enginePower, int maxLoad){
-        super(2, 0.0, 70.0, color, enginePower, "Scania Truck", maxLoad);
+    public Scania(Color color, int enginePower, int maxLoad, double[] cords){
+        super(2, 0.0, 70.0, color, enginePower, "Scania Truck", maxLoad, cords);
     }
 
 
