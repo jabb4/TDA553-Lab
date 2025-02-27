@@ -5,28 +5,30 @@ import java.util.ArrayList;
  * @param <T> the type of car to be able to handel
  */
 public class Workshop<T extends Car> {
-    private CarStorage<T> carStorage;
+    private CarStorage carStorage;
+    private double xCord;
+    private double yCord;
 
-    public Workshop(int maxLoad) {
-        this.carStorage = new CarStorage<>(maxLoad);
+
+    public Workshop(int maxLoad, double[] cords) {
+        this.xCord = cords[0];
+        this.yCord = cords[1];
+        this.carStorage = new CarStorage(maxLoad); {
+        };
     }
 
     public void load(T car) {
-        this.carStorage.load(car);
+        this.carStorage.load(car, car.getCords());
         car.setDriveable(false);
     }
 
-    public T unload() {
-        T unloaded = this.carStorage.unload();
+    public Car unload() {
+        Car unloaded = this.carStorage.unload(new double[]{xCord, yCord});
         unloaded.setDriveable(true);
         return unloaded;
     }
 
-    public CarStorage<T> getLoaded() {
-        return this.carStorage;
-    }
-
     public int getStorageSize() {
-        return this.carStorage.storage.size();
+        return this.carStorage.getStorageSize();
     }
 }

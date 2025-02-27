@@ -23,7 +23,7 @@ public class CarModel {
     CarController frame;
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
-    Workshop<Volvo240> workshop = new Workshop<>(10);
+    Workshop<Volvo240> workshop = new Workshop<>(10, new double[]{10, 300});
 
     //methods:
 

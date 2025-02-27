@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class TruckCarTransport extends Truck {
     private boolean tilted;
-    private CarTransport carTransport;
+    private CarStorage carStorage;
 
     /**
      * Constructor for Truck with specified attributes.
@@ -13,7 +13,7 @@ public class TruckCarTransport extends Truck {
      */
     public TruckCarTransport(Color color, int enginePower, String modelName,int maxLoad, double[] cords) {
         super(2, color, enginePower, modelName, maxLoad, cords);
-        this.carTransport = new CarTransport(maxLoad);
+        this.carStorage = new CarStorage(maxLoad);
         this.tilted = false;
     }
 
@@ -37,7 +37,7 @@ public class TruckCarTransport extends Truck {
         // Check that loaded item is not a truck
         if (car instanceof Truck) throw new IllegalStateException("Can not load Trucks");
 
-        carTransport.load(car, this.getCords());
+        carStorage.load(car, this.getCords());
     }
 
     /**
@@ -47,7 +47,7 @@ public class TruckCarTransport extends Truck {
         //Check tilted
         if (!this.isTilted()) throw new IllegalStateException("Can not unload car while trailer is not tilted");
 
-        carTransport.unload(this.getCords());
+        carStorage.unload(this.getCords());
     }
 
     /**
@@ -62,7 +62,7 @@ public class TruckCarTransport extends Truck {
      *
      * @return int, amount of stored cars
      */
-    public int getStorageSize() { return carTransport.getStorageSize(); }
+    public int getStorageSize() { return carStorage.storage.size(); }
 
     /**
      * Overrides move() in order to check if the trailer is tilted,
@@ -76,7 +76,7 @@ public class TruckCarTransport extends Truck {
         }
         else {
             super.move();
-            carTransport.updateCarCords(this.getCords());
+            carStorage.updateCarCords(this.getCords());
         }
     }
 
