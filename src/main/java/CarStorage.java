@@ -32,7 +32,7 @@ public class CarStorage implements Storage<Car> {
             throw new IllegalArgumentException("The car is already in the storage");
         }
         //Check distances
-        if (abs(car.getCords()[0] - transportCords[0]) <=1 && abs(car.getCords()[1] - transportCords[1]) <=1){
+        if (Utils.isNear(transportCords, car.getCords(), 40)){
             //Set car cords accordingly to the transport cords
             car.setCords(transportCords);
             storage.add(car);

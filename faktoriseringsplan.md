@@ -3,7 +3,7 @@
 - [x]  Skapa nytt interface Storage, och justera så att CarStorage implementerar detta.
     - [x] CarStorage: Flytta updateCarCords och getStorageSize från CarTransport till CarStorage. Ta bort classen CarTransport.
 
-- Utils: Skapa som ny klass. Skapa en metod i klassen som tar in 3 parametrar, två koordinater av två objekt och hur "känslig" funktionen är.
+- [x] Utils: Skapa som ny klass. Skapa en metod i klassen som tar in 3 parametrar, två koordinater av två objekt och hur "känslig" funktionen är.
     - [x]  Ta bort carTransport klassen. Justera TruckCarTransport så att den tar in en klass som implementerar Storage. Använd isNear från Utils istället för långa if satser för att kolla om den kan load/unload.
     - Ändra TiltingTruck till en vanlig class med namnet Tilt. Ta bort move().
         - Ändra så att TruckCarTransport och Scania tar in en instans av Tilt. Skapa metoderna changeTiltAngel, isTilted, Move för Scania och changeTiltState, isTilted, Move för TruckCarTransport. Gör så att de använder sig av tilt för att uppnå denna funtionallitet.

@@ -18,7 +18,8 @@ public class Workshop<T extends Car> {
     }
 
     public void load(T car) {
-        this.carStorage.load(car, car.getCords());
+
+        this.carStorage.load(car, new double[] {xCord, yCord});
         car.setDriveable(false);
     }
 

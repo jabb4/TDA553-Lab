@@ -60,17 +60,16 @@ public class CarModel {
                 int x = (int) Math.round(car.getCords()[0]);
                 int y = (int) Math.round(car.getCords()[1]);
 
-                if (270 < y && y < 330) {
-                    try {
-                        workshop.load((Volvo240) car);
-                        car.stopEngine();
-                        double[]newcords = new double[2];
-                        newcords[0] = x+40;
-                        newcords[1] = y-40;
-                        car.setCords(newcords);
-                    } catch (Exception e2) {
-                        System.out.println(car.getModelName() + e2.getMessage());
-                    }
+
+                try {
+                    workshop.load((Volvo240) car);
+                    car.stopEngine();
+                    double[]newcords = new double[2];
+                    newcords[0] = x+40;
+                    newcords[1] = y-40;
+                    car.setCords(newcords);
+                } catch (Exception e2) {
+                    System.out.println(car.getModelName() + e2.getMessage());
                 }
 
                 if (y >= 510){
