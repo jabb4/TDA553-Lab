@@ -20,6 +20,9 @@ public abstract class Car implements Movable {
     private boolean driveable = true;
     private boolean engineState = false;
 
+    private int ID;
+    static int counter = 0;
+
     /**
      * Constructor for Car with specified attributes.
      *
@@ -35,6 +38,7 @@ public abstract class Car implements Movable {
         this.modelName = modelName;
         stopEngine();
         setCords(cords);
+        this.ID = counter++;
     }
 
     public String getModelName(){
@@ -260,4 +264,7 @@ public abstract class Car implements Movable {
         this.driveable = input;
     }
 
+    public int getID() {
+        return this.ID;
+    }
 }

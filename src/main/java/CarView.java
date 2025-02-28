@@ -1,38 +1,35 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.Map.Entry;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
 public class CarView extends JPanel{
-
-    // Just a single image
+    private ArrayList<Point> graphicalCarsPoints = new ArrayList<>();
+    private ArrayList<BufferedImage> graphicalCarsImages = new ArrayList<>();
     BufferedImage volvoImage;
-    Point volvoPoint = new Point(0, 0);
-
     BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(10,300);
-
     BufferedImage saabImage;
-    Point saabPoint = new Point(0,0);
-
     BufferedImage scaniaImage;
-    Point scaniaPoint = new Point(0, 0);
 
-    // TODO: Make this general for all cars
-    void moveit(Car car, int x, int y){
-        if (car instanceof Volvo240) {
-            volvoPoint.x = x;
-            volvoPoint.y = y;
-        } else if (car instanceof Saab95) {
-            saabPoint.x = x;
-            saabPoint.y = y;
-        } else if (car instanceof Scania) {
-            scaniaPoint.x = x;
-            scaniaPoint.y = y;
+    public void addGraphicalCar(Car car){
+        Point cords = new Point((int)car.getCords()[0], (int)car.getCords()[1]);
+        this.graphicalCarsPoints.add(cords);
+        switch (car) {
+            case Volvo240 volvo240 -> this.graphicalCarsImages.add(volvoImage);
+            case Saab95 saab95 -> this.graphicalCarsImages.add(saabImage);
+            case Scania scania -> this.graphicalCarsImages.add(scaniaImage);
+            default -> throw new IllegalArgumentException("Invalid car type");
         }
+    }
+
+    void moveit(Car car){
+        this.graphicalCarsPoints.set(car.getID(), new Point((int)car.getCords()[0], (int)car.getCords()[1]));
     }
 
     // Initializes the panel and reads the images
@@ -64,9 +61,8 @@ public class CarView extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
-        g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
-        g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
-        g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
+        for (int i = 0; i < this.graphicalCarsPoints.size(); i++ ){
+            g.drawImage(this.graphicalCarsImages.get(i), this.graphicalCarsPoints.get(i).x, this.graphicalCarsPoints.get(i).y, null);
+        }
     }
 }

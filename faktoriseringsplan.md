@@ -12,3 +12,18 @@
     - [x] ActionListeners i CarView flyttas till en ny class: CarController
       - [x] Det som nu finns i CarView ska flyttas in i CarView.
         - [x] ta bort DrawPanel
+
+
+# Composite Pattern
+- [x]  Gör om så att workshops skapas via en ArrayList i CarModel likt hur bilar hanteras i nuläget. Detta enligt Composite Pattern för att förenkla att lägga till nya workshops. 
+- Carview gör vi en lista med alla grafik bilar, en annan lista med alla grafik workshop
+
+# Factory Pattern
+- [x]  Implementera detta på skapandet av nya bilar. Skapa en car factory, sen en scania factory, volvo factory, saab factory
+   - Se till så att detta fungerar vid användning av "Create Car" knapp som kommer att skapas senare
+
+# Observer Pattern
+- Observer Pattern skulle kunna implementeras för knapparna vi använder för att kontrollera bilarna. Detta genom att lägga in varje enskild bil som en observer, och på det sättet välja vilka bilar som lyssnar på vilka knappar. Detta är för överflödigt och vi väljer att inte implmentera det.
+
+# State Pattern
+- Många ställen där vi använder oss av states men utan att implementera state patterns så har vi typ bara två states som isTilted True/False så vi känner att det blir överflödigt att implementera state paterns eftersom det inte är relevant att lägga till states.

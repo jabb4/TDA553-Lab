@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -23,24 +24,15 @@ public class CarModel {
     CarController frame;
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
-    Workshop<Volvo240> workshop = new Workshop<>(10, new double[]{10, 300});
+    ArrayList<Workshop> workshops = new ArrayList<>();
 
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
         CarModel cc = new CarModel();
-
-        double[] index = {0, 0};
-        cc.cars.add(new Volvo240(Color.black, 1000, 1.0, index));
-        index[0] += 150;
-        cc.cars.add(new Scania(Color.black, 200, 10, index));
-        index[0] += 150;
-        cc.cars.add(new Saab95(Color.black, 200, true, index));
-        index[0] += 150;
-
-        // Start a new view and send a reference of self
         cc.frame = new CarController("CarSim 1.0", cc);
+
 
         // Start the timer
         cc.timer.start();
@@ -60,16 +52,17 @@ public class CarModel {
                 int x = (int) Math.round(car.getCords()[0]);
                 int y = (int) Math.round(car.getCords()[1]);
 
-
-                try {
-                    workshop.load((Volvo240) car);
-                    car.stopEngine();
-                    double[]newcords = new double[2];
-                    newcords[0] = x+40;
-                    newcords[1] = y-40;
-                    car.setCords(newcords);
-                } catch (Exception e2) {
-                    System.out.println(car.getModelName() + e2.getMessage());
+                for (Workshop workshop : workshops) {
+                    try {
+                        workshop.load(car);
+                        car.stopEngine();
+                        double[] newcords = new double[2];
+                        newcords[0] = x + 40;
+                        newcords[1] = y - 40;
+                        car.setCords(newcords);
+                    } catch (Exception e2) {
+                        System.out.println(car.getModelName() + e2.getMessage());
+                    }
                 }
 
                 if (y >= 510){
@@ -79,11 +72,38 @@ public class CarModel {
                     car.turnRight();
                     car.turnRight();
                 }
-                frame.carView.moveit(car, x, y);
+                frame.carView.moveit(car);
                 // repaint() calls the paintComponent method of the panel
                 frame.carView.repaint();
             }
         }
+    }
+
+    Car createNewCar() {
+        Random rand = new Random();
+        double[] lastCords = new double[] {0,0};
+        try{
+            lastCords = cars.getLast().getCords();
+            lastCords[0] += 150;
+        } catch (Exception e2) {
+            System.out.println(e2.getMessage());
+        }
+
+
+        int randomIndex = rand.nextInt(3);
+
+        switch (randomIndex) {
+            case 0:
+                cars.add(new VolvoFactory().createCar(lastCords));
+                break;
+            case 1:
+                cars.add(new SaabFactory().createCar(lastCords));
+                break;
+            case 2:
+                cars.add(new ScaniaFactory().createCar(lastCords));
+                break;
+        }
+        return cars.getLast();
     }
 
     void start() {

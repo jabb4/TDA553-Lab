@@ -35,6 +35,7 @@ public class CarController extends JFrame {
     JButton turboOffButton = new JButton("Saab Turbo off");
     JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton createNewCarButton = new JButton("Create New Car");
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
@@ -83,6 +84,7 @@ public class CarController extends JFrame {
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(createNewCarButton, 6);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -98,6 +100,17 @@ public class CarController extends JFrame {
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         this.add(stopButton);
+
+        //createNewCarButton.setBackground(Color.green);
+        //createNewCarButton.setPreferredSize(new Dimension(X/5-15,200));
+
+
+        createNewCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                carView.addGraphicalCar(carC.createNewCar());
+            }
+        });
 
         startButton.addActionListener(new ActionListener() {
             @Override
